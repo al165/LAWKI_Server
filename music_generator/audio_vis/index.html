@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Audio Embedding Explorer</title>
+        <meta charset="utf-8">
+        <script src="./two.min.js"></script>
+    </head>
+
+	<body>
+    	<div id="draw-shapes"></div>
+		<script type="text/javascript" src="data.json"></script>
+		<script>
+			var data = d;
+
+			var elem = document.getElementById('draw-shapes');
+			var two = new Two({width: 1200, height: 1200}).appendTo(elem);
+
+			var points = [];
+			var playing = {};
+
+			for (pos of data.points){
+				if (Math.random() < 1.0){
+    				let point = two.makeCircle(pos[0] * 1200, pos[1] * 1200, 4);
+    				point.fill = '#FF8000';
+    				point.noStroke();
+    				points.push(point);
+				}
+			}
+
+			two.update();
+
+			for (point of points){
+    			point._renderer.elem.addEventListener('mouseover', onHover, false);
+    			point._renderer.elem.addEventListener('click', onClick, false);
+			}
+
+			function onHover(event) {
+				let id = event.target.id.substring(4) - 1;
+				console.log(data.fps[id]);
+
+				if (!playing[id]){
+					let audio = new Audio(data.fps[id]);
+					audio.onended = (event) => {
+						points[id].fill = '#FF8000';
+						playing[id] = null;
+						two.update();
+					};
+					playing[id] = audio;
+					points[id].fill = '#FF1000';
+					audio.play();
+					two.update();
+				}
+			}
+
+			function onClick(event) {
+				let id = event.target.id.substring(4) - 1;
+				if (playing[id]){
+					playing[id].pause();
+					playing[id].onended();
+				}
+			}
+
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,10 @@
+#N canvas 1010 79 658 342 10;
+#X text 394 49 == waveform library ==;
+#X obj 68 66 table waveform0 515;
+#X obj 68 86 table waveform1 515;
+#X obj 68 106 table waveform2 515;
+#X obj 68 126 table waveform3 515;
+#X obj 68 146 table waveform4 515;
+#X obj 68 166 table waveform5 515;
+#X obj 68 186 table waveform6 515;
+#X obj 68 206 table waveform7 515;
