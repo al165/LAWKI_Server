@@ -20,6 +20,7 @@ from pythonosc.udp_client import SimpleUDPClient
 from pythonosc.osc_server import AsyncIOOSCUDPServer, BlockingOSCUDPServer
 
 #from map_sinks import *
+sys.path.append('..')
 from logprint import logprint
 from lawki_constants import *
 from video_quad import VideoQuad

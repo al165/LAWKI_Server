@@ -1,6 +1,7 @@
 music_generator/data/test_music/
 music_generator/LAWKI_NOW_samples/
 
+*.log
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
