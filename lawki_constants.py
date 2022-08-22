@@ -85,7 +85,7 @@ FILTER_LEVEL_BOUNDS = [0.0, 2.7, 5.0, 7.3, 9.5, 11.8, 100]
 
 #VIDEO_BASE_FP = '/home/lawki/raw'
 #VIDEO_BASE_FP = '/mnt/new/raw/'
-VIDEO_BASE_FP = '/mnt/usb/LAWKI_Passages/videos/'
+VIDEO_BASE_FP = '/mnt/usb/usb1/LAWKI_Passages/videos/'
 #VIDEO_BASE_FP = '../vids/'
 #VIDEO_BASE_FP = "/mnt/usb/LAWKI_ALIVE/videos/"
 AUDIO_BASE_FP = 'samples/'

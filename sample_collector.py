@@ -66,7 +66,7 @@ class SampleCollector(Thread):
 
         # load embedding model
         logprint('loading embedding_model...', end= ' ', flush=True)
-        embedding_parameters = torch.load(f'/home/lawki/development/music_generator/models/AE_embedding_model.pt', map_location=torch.device('cpu'))
+        embedding_parameters = torch.load('/home/lawki/LAWKI_Server/music_generator/models/AE_embedding_model.pt', map_location=torch.device('cpu'))
         self.embedding_model = LinearAE(**embedding_parameters['model_params']).to(DEVICE)
         self.embedding_model.load_state_dict(embedding_parameters['model_state_dict'])
         self.embedding_model.eval()
@@ -83,12 +83,12 @@ class SampleCollector(Thread):
         print('done')
 
 
-    def run(self):
-        pass;
+    #def run(self):
+    #    pass;
 
 
-    def join(self, timeout=1):
-        super(SampleCollector, self).join(timeout)
+    #def join(self, timeout=1):
+    #    super(SampleCollector, self).join(timeout)
 
 
     def update(self, audio_fp:str=None, max_len:float=None):
