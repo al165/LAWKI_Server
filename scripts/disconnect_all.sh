@@ -1,3 +1,12 @@
+jack_lsp -c system | while read -r line; do
+    #echo "prcessing $line"
+    if [[ $line == system* ]]; then
+        port=$line
+        #echo "$port"
+    else
+        jack_disconnect $port $line
+    fi
+done
 
 jack_lsp -c pure_data_0 | while read -r line; do
     #echo "prcessing $line"

@@ -11,20 +11,21 @@ def feature_extractor(signal, sf):
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
 
-        mfccs = librosa.feature.mfcc(signal, sr=sf)
+        mfccs = librosa.feature.mfcc(y=signal, sr=sf)
         mfccs -= mfccs.mean()
         mfccs /= mfccs.std()
     
         mfccs_mean = np.mean(mfccs, axis=1)
         mfccs_std = np.std(mfccs, axis=1)
-        mfccs_mfod = np.mean(np.diff(mfccs, axis=1), axis=1)  # mean first order difference
 
-        chromo = librosa.feature.chroma_stft(signal, sr=sf)
+        # mean first order difference
+        mfccs_mfod = np.mean(np.diff(mfccs, axis=1), axis=1)  
+
+        chromo = librosa.feature.chroma_stft(y=signal, sr=sf)
         chromo_mean = np.mean(chromo, axis=1)
         chromo_std = np.std(chromo, axis=1)
-        
-        
-    onset = librosa.onset.onset_strength(signal, sr=sf)
+
+    onset = librosa.onset.onset_strength(y=signal, sr=sf)
     onenv = np.zeros(8)
     hop = max(1, int(len(onset) / 8))
     for i in range(8):

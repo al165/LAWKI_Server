@@ -89,7 +89,7 @@ VIDEO_BASE_FP = '/mnt/usb/usb1/LAWKI_Passages/videos/'
 #VIDEO_BASE_FP = '../vids/'
 #VIDEO_BASE_FP = "/mnt/usb/LAWKI_ALIVE/videos/"
 AUDIO_BASE_FP = 'samples/'
-
+MUSIC_GENERATOR_ROOT = '/home/lawki/LAWKI_Server/music_generator'
 AUDIO_TEMP_DIR = '/tmp/'
 
 SAMPLE_RATE = 44100

@@ -74,11 +74,11 @@ class SampleCollector(Thread):
 
         logprint('loading reducer model...', end=' ', flush=True)
         # load reducer model
-        with open('/home/lawki/development/music_generator/models/reducer.pkl', 'rb') as f:
+        with open(os.path.join(MUSIC_GENERATOR_ROOT, 'models/reducer.pkl'), 'rb') as f:
             self.reducer = pkl.load(f)
         print('done')
         logprint('loading scaler', end=' ', flush=True)
-        with open('/home/lawki/development/music_generator/models/reducer_scaler.pkl', 'rb') as f:
+        with open(os.path.join(MUSIC_GENERATOR_ROOT, 'models/reducer_scaler.pkl'), 'rb') as f:
             self.reducer_scaler = pkl.load(f)
         print('done')
 
@@ -90,13 +90,12 @@ class SampleCollector(Thread):
     #def join(self, timeout=1):
     #    super(SampleCollector, self).join(timeout)
 
-
     def update(self, audio_fp:str=None, max_len:float=None):
         start_time = time.time()
 
         # 1. load audio stream
         if audio_fp:
-            y = load_audio(fp)
+            y = load_audio(audio_fp)
         else:
             fallback_audio_path = os.path.join(AUDIO_TEMP_DIR, 'audio.wav')
             try:
@@ -120,7 +119,7 @@ class SampleCollector(Thread):
         # 3. embed and reduce units
         unit_features = [fe.feature_extractor(u, SAMPLE_RATE)['features'] for u in units]        
         unit_embedding = self.embedding_model.encode(
-            torch.tensor(unit_features, device=DEVICE, dtype=torch.float)
+            torch.tensor(np.stack(unit_features), device=DEVICE, dtype=torch.float)
         )
         unit_reduced = self.reducer.transform(unit_embedding.cpu().detach().numpy())
         unit_reduced = self.reducer_scaler.transform(unit_reduced)

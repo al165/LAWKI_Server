@@ -3,7 +3,7 @@
 echo "~~ STOPPING LAWKI-PASSAGES ~~" >> start.log
 date >> start.log
 
-/home/lawki/LAWKI_Server/scripts/disconect_all.sh >> start.log
+/home/lawki/LAWKI_Server/scripts/disconnect_all.sh >> start.log
 
 killall python
 killall purr-data
