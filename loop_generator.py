@@ -182,8 +182,11 @@ class LoopGenerator:
                 y = self.audio_cache[i[1]]
             else:
                 fp = self.fps[i[1]]
-                y, _ = librosa.load(fp, sf)
-                self.audio_cache[i[1]] = y
+                try:
+                    y, _ = librosa.load(fp, sf)
+                    self.audio_cache[i[1]] = y
+                except FileNotFoundError:
+                    continue
             
             # set length (in grains) of sample
             l1 = (i[0]) * grain_samples

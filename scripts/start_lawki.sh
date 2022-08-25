@@ -8,8 +8,8 @@ whoami >> start.log
 date >> start.log
 pwd >> start.log
 
-killall python
-killall purr-data
+killall -s TERM python
+killall -s TERM purr-data
 
 sleep 3
 
@@ -22,8 +22,14 @@ echo " - setting up sound..." >> start.log
 # start Pd and run the LAWKI patch
 purr-data -jack -rt -inchannels 2 -outchannels 8 music_player/video_sound.pd > /dev/null &
 
+echo " - moving windows out the way" >> start.log
+sleep 3
+wmctrl -r purr-data -t 1
+wmctrl -r video_sound.pd -t 1
+wmctrl -r teamviewer -t 1
+
 echo " - (waiting for sound cards to be free..."
-sleep 10
+sleep 7
 
 # rename ALSA devices
 scripts/make_alsa_outs.sh >> start.log
@@ -31,15 +37,12 @@ scripts/make_alsa_outs.sh >> start.log
 # disconnect all of Pd's connections
 scripts/disconnect_all.sh >> start.log
 
-sleep 2
-
 # connect Pd to correct outputs
 scripts/make_jack_connections.sh >> start.log
 
 echo " - sound done" >> start.log
 
 echo " - starting video server" >> start.log
-sleep 1
 python video_server.py &
 echo " - done" >> start.log
 
@@ -50,8 +53,6 @@ python sample_collector.py &
 echo " - done" >> start.log
 
 echo " - starting the LAWKI player" >> start.log
-sleep 1
-
 ../openFrameworks/apps/myApps/lawki_player/bin/lawki_player &
 
 #python /home/lawki/development/lawki_player.py -l

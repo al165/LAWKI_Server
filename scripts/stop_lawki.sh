@@ -5,10 +5,10 @@ date >> start.log
 
 /home/lawki/LAWKI_Server/scripts/disconnect_all.sh >> start.log
 
-killall python
-killall purr-data
+killall -s TERM python
+killall -s TERM purr-data
 
-killall lawki_player
+killall -s TERM lawki_player
 
 echo "~~ ENDED ~~" >> start.log
 
